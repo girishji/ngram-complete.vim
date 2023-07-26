@@ -16,7 +16,7 @@ This plugin is a helper for Vim completion plugin
 _Note: Unigram and bigram files cannot be sorted alphabetically. To make search
 efficient hashmaps are used. There is one-time upfront cost (~0.8 sec for
 unigrams and bigrams each) associated with creating hashmaps. There is no
-degradation in startup performance since processing is done asynchronously.
+degradation in startup performance since processing is done asynchronously._
 
 ![image](https://i.imgur.com/HHDt2yh.png)
 
