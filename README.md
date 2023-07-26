@@ -18,11 +18,12 @@ efficient hashmaps are used. There is one-time upfront cost (~0.8 sec for
 unigrams and bigrams each) associated with creating hashmaps. There is no
 degradation in startup performance since processing is done asynchronously._
 
-![image](https://i.imgur.com/HHDt2yh.png)
+[![asciicast](https://asciinema.org/a/ROsT1n4Z0mJJM1thotftJcb1U.svg)](https://asciinema.org/a/ROsT1n4Z0mJJM1thotftJcb1U)
 
 # Requirements
 
 - Vim >= 9.0
+- [Vimcomplete](https://github.com/girishji/vimcomplete)
 
 # Installation
 
