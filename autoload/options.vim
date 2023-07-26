@@ -1,8 +1,10 @@
 vim9script
 
 export var opts: dict<any> = {
-    maxCount: 5,
-    bigram: true,
+    enable: true,    # Enable this plugin
+    priority: 11,    # Higher priority items are shown at the top
+    maxCount: 5,     # Maximum number of items shown
+    bigram: false,   # 'true' to enable next-word completion
     unigramfile: 'count_1w.txt',
     bigramfile: 'count_2w.txt',
 }

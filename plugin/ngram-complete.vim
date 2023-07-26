@@ -40,7 +40,7 @@ autocmd User VimCompleteLoaded ++once Register()
 def OptionsChanged()
     var options = vimcompletor.GetOptions(name)
     if !options->empty()
-	opts.options->extend(options)
+	opts.opts->extend(options)
 	Register()
     endif
 enddef
