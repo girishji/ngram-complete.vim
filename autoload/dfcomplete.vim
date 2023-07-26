@@ -6,6 +6,9 @@ export var options: dict<any> = {
 
 var dictlines = []
 
+# It takes 0.9 sec to build dictionary (parse each line) from lines read from
+# file. It takes .024 sec for readfile(), as measured by reltime().
+
 def GetDictLines(): list<any>
     if dictlines->empty()
 	var scripts = getscriptinfo({ name: 'dictionary-frequency.vim/plugin' })
@@ -20,11 +23,11 @@ def GetDictLines(): list<any>
     return dictlines
 enddef
 
-const batchsize: number = 1000
+const batchsize: number = 10000
 var onedict = {}
 var twodict = {}
 
-def Worker(startidx: number, timer: number)
+export def SetupDict(startidx: number = 0, timer: number = 0)
     def AddWord(worddict: dict<any>, key: string, word: string, limit: bool)
 	if !worddict->has_key(key)
 	    worddict[key] = []
@@ -47,12 +50,8 @@ def Worker(startidx: number, timer: number)
 	    endif
 	    idx += 1
 	endwhile
-	timer_start(0, function(Worker, [startidx + batchsize]))
+	timer_start(0, function(SetupDict, [startidx + batchsize]))
     endif
-enddef
-
-export def SetupDict()
-    Worker(0, 0)
 enddef
 
 def GetDictCompletion(prefix: string): list<string>
