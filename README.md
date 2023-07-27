@@ -60,8 +60,13 @@ export var options: dict<any> = {
     maxCount: 5,     # Maximum number of items shown
     bigram: false,   # 'true' to enable next-word completion
     filetypes: ['text', 'markdown'], # Enable completion for these filetypes only ('*' for all)
+    filetypesComments: [], # Enable completion only in comments
 }
 ```
+
+It is possible to complete words only in the comment section of source code
+files. `filetypesComments` should be set to a list of file types (ex. `['c',
+'cpp', 'python']`).
 
 Options can be modified using `g:VimCompleteOptionsSet()`. It takes a dictionary
 argument. If you are using [vim-plug](https://github.com/junegunn/vim-plug),
