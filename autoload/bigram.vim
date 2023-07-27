@@ -23,6 +23,9 @@ export def SetupDict(startidx: number = 0, timer: number = 0)
     # if startidx == 0
 	# starttime = reltime()
     # endif
+    if !bigrams->empty()
+	return
+    endif
     if startidx < GetDictLines()->len()
 	var endidx = min([startidx + batchsize, GetDictLines()->len()])
 	var idx = startidx

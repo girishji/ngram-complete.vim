@@ -7,6 +7,8 @@ export var opts: dict<any> = {
     bigram: false,   # 'true' to enable next-word completion
     unigramfile: 'count_1w.txt',
     bigramfile: 'count_2w.txt',
+    filetypes: ['text', 'markdown', 'help'],
+    filetypesComments: [],
 }
 
 def GetPath(fname: string): string

@@ -30,6 +30,9 @@ export def SetupDict(startidx: number = 0, timer: number = 0)
 	    worddict[key]->add(word)
 	endif
     enddef
+    if !onedict->empty()
+	return
+    endif
     if startidx < GetDictLines()->len() 
 	var endidx = min([startidx + batchsize, GetDictLines()->len()])
 	var idx = startidx

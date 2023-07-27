@@ -7,9 +7,14 @@ import autoload './bigram.vim'
 var opts = options.opts
 
 export def Completor(findstart: number, base: string): any
-    var line = getline('.')->strpart(0, col('.') - 1)
+    var curcol = col('.') - 1
+    var line = getline('.')->strpart(0, curcol)
     var EndsInSpace = () => line =~ '\s$'
+    var incomments = synID(line('.'), curcol, 1)->synIDattr('name') =~? '\vcomment|doxygen'
     if findstart == 1
+	if opts.filetypesComments->index(&ft) != -1 && !incomments
+	    return -2
+	endif
 	if opts.bigram && EndsInSpace()
 	    return line->len() + 1
 	endif
@@ -40,6 +45,7 @@ export def Completor(findstart: number, base: string): any
 	items = unigram.GetCompletion(base)
     endif
 
+    items->filter((_, v) => v != base)
     var citems = []
     for item in items
 	citems->add({ abbr: item, word: item, kind: 'D' })

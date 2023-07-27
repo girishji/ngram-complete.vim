@@ -19,16 +19,24 @@ import autoload '../autoload/bigram.vim'
 
 const name = 'ngram'
 
+def SetupDict()
+    unigram.SetupDict()
+    if opts.opts.bigram
+	bigram.SetupDict()
+    endif
+enddef
+
 def Register()
     var o = opts.opts
     if !o->has_key('enable') || o.enable
-	var ftypes = o->get('filetypes', ['text', 'markdown'])
+	var ftypes = o->get('filetypes', [])->copy()
+	ftypes->extend(o->get('filetypesComments', []))
 	vimcompletor.Register(name, complete.Completor, ftypes, o->get('priority', 10))
-	if &ft->empty() || ftypes->index(&ft) != -1
-	    unigram.SetupDict()
-	    if o.bigram
-		bigram.SetupDict()
-	    endif
+	var ft = ftypes->join(',')
+	if !ft->empty()
+	    augroup NgramAutocmds | autocmd!
+		exec $'autocmd FileType {ft} SetupDict()'
+	    augroup END
 	endif
     else
 	vimcompletor.Unregister(name)
