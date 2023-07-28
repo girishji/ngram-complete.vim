@@ -10,6 +10,8 @@ bigrams file has 286,358 pairs of words. No additional download is necessary.
 Unigrams complete single words while bigrams suggest next word. Both uppercase
 and camelcase are respected. Bigram completion is turned off by default.
 
+There is also an option to complete words within the comment section of source code.
+
 This plugin is a helper for Vim completion plugin
 [Vimcomplete](https://github.com/girishji/vimcomplete).
 
