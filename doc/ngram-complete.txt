@@ -68,7 +68,6 @@ Or use Vim's builtin package manager.
 4. Configuration				*ngram-configuration*
 
 Default options are as follows.
-
 >
 	vim9script
 	export var options: dict<any> = {
@@ -87,7 +86,6 @@ files. `filetypesComments` should be set to a list of file types (ex.
 Options can be modified using `g:VimCompleteOptionsSet()`. It takes a dictionary
 argument. If you are using vim-plug, call this function through |VimEnter|
 autocommand event.
-
 >
 	autocmd VimEnter * g:VimCompleteOptionsSet(options)
 
