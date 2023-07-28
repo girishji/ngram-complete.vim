@@ -1,0 +1,96 @@
+*ngram-complete.txt*	Dictionary and Next-Word Completion using Ngrams
+
+Author: Girish Palya (girishji AT gmail DOT com)
+For Vim version 9.0 and above
+
+==============================================================================
+CONTENTS                                            *ngram-contents*
+
+     1. Overview ................................. |ngram-overview|
+     2. Requirements ............................. |ngram-requirements|
+     3. Installation ............................. |ngram-installation|
+     4. Configuration............................. |ngram-configuration|
+
+==============================================================================
+1. Overview					*ngram-overview*
+
+Traditional dictionary based word completion is more or less useless since it
+prioritizes obsure words over frequently used words. A better approach is to
+use unigrams (list of most frequently used words in English corpus).
+
+Data comes from (http://norvig.com/ngrams/) sourced from "Google Web Trillion
+Word Corpus". Unigrams file has 333,333 most frequently occuring words and
+bigrams file has 286,358 pairs of words. No additional download is necessary.
+Unigrams complete single words while bigrams suggest next word. Both uppercase
+and camelcase are respected. Bigram completion is turned off by default.
+
+There is also an option to complete words within the comment section of source
+code.
+
+This plugin is a helper for Vim completion plugin Vimcomplete
+(|vimcomplete.txt|) (https://github.com/girishji/vimcomplete).
+
+Note: Unigram and bigram files cannot be sorted alphabetically. To make search
+efficient associative arrays (|Dictionaries|) are used. There is one-time
+upfront cost (~0.8 sec for unigrams and bigrams each) associated with creating
+data structures. There is no degradation in startup performance since
+processing is done asynchronously.
+
+==============================================================================
+2. Requirements					*ngram-requirements*
+
+- Vim >= 9.0
+- Vimcomplete (|vimcomplete.txt|)
+
+==============================================================================
+3. Installation					*ngram-installation*
+
+Note: Install this plugin after installing Vimcomplete.
+
+Install using vim-plug (https://github.com/junegunn/vim-plug)
+
+>
+	vim9script
+	plug#begin()
+	Plug 'girishji/ngram-complete.vim'
+	plug#end()
+
+Legacy script:
+
+>
+	call plug#begin()
+	Plug 'girishji/ngram-complete.vim'
+	call plug#end()
+
+Or use Vim's builtin package manager.
+
+==============================================================================
+4. Configuration				*ngram-configuration*
+
+Default options are as follows.
+
+>
+	vim9script
+	export var options: dict<any> = {
+	    enable: true,    # Enable this plugin
+	    priority: 10,    # Higher priority items are shown at the top
+	    maxCount: 5,     # Maximum number of items shown
+	    bigram: false,   # 'true' to enable next-word completion
+	    filetypes: ['text', 'markdown'], # Enable completion for these filetypes only ('*' for all)
+	    filetypesComments: [], # Enable completion only in comments
+	}
+
+It is possible to complete words only in the comment section of source code
+files. `filetypesComments` should be set to a list of file types (ex.
+ `['c', 'cpp', 'python']`).
+
+Options can be modified using `g:VimCompleteOptionsSet()`. It takes a dictionary
+argument. If you are using vim-plug, call this function through |VimEnter|
+autocommand event.
+
+>
+	autocmd VimEnter * g:VimCompleteOptionsSet(options)
+
+==============================================================================
+
+vim:tw=78:ts=8:noet:ft=help:norl:

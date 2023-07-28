@@ -1,4 +1,4 @@
-# Dictionary and Next-Word Completion for Vim
+# Dictionary and Next-Word Completion for Vim using Ngrams
 
 Traditional dictionary based word completion is more or less useless since it
 prioritizes obsure words over frequently used words. A better approach is to use
@@ -16,9 +16,10 @@ This plugin is a helper for Vim completion plugin
 [Vimcomplete](https://github.com/girishji/vimcomplete).
 
 _Note: Unigram and bigram files cannot be sorted alphabetically. To make search
-efficient hashmaps are used. There is one-time upfront cost (~0.8 sec for
-unigrams and bigrams each) associated with creating hashmaps. There is no
-degradation in startup performance since processing is done asynchronously._
+efficient associative arrays (|Dictionaries|) are used. There is one-time
+upfront cost (~0.8 sec for unigrams and bigrams each) associated with creating
+data structures. There is no degradation in startup performance since
+processing is done asynchronously._
 
 [![asciicast](https://asciinema.org/a/ROsT1n4Z0mJJM1thotftJcb1U.svg)](https://asciinema.org/a/ROsT1n4Z0mJJM1thotftJcb1U)
 
