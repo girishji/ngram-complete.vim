@@ -19,7 +19,7 @@ import autoload '../autoload/bigram.vim'
 
 const name = 'ngram'
 
-def SetupDict()
+def NgramSetupDict()
     unigram.SetupDict()
     if opts.opts.bigram
 	bigram.SetupDict()
@@ -34,8 +34,9 @@ def Register()
 	vimcompletor.Register(name, complete.Completor, ftypes, o->get('priority', 10))
 	var ft = ftypes->join(',')
 	if !ft->empty()
+	    NgramSetupDict() # Register() is called through VimEnter (after ft is detected)
 	    augroup NgramAutocmds | autocmd!
-		exec $'autocmd FileType {ft} SetupDict()'
+		exec $'autocmd BufEnter {ft} NgramSetupDict()'
 	    augroup END
 	endif
     else
