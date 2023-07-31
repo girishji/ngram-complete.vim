@@ -1,4 +1,4 @@
-*ngram-complete.txt*	Dictionary and Next-Word Completion using Ngrams
+*ngram.txt*	Dictionary and Next-Word Completion using Ngrams
 
 Author: Girish Palya (girishji AT gmail DOT com)
 For Vim version 9.0 and above
