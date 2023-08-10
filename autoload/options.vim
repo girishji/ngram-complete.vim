@@ -12,13 +12,14 @@ export var opts: dict<any> = {
 }
 
 def GetPath(fname: string): string
-    var scripts = getscriptinfo({ name: 'ngram-complete.vim/plugin' })
+    var scripts = getscriptinfo({ name: 'ngram-complete.vim' })
     if scripts->empty()
 	return ''
     endif
     var path = scripts[0].name
-    path = fnamemodify(path, ':p:h')
-    return $'{path}/../data/{fname}'
+    path = fnamemodify(path, ':p:h:h')
+    var fpath = $'{path}/data/{fname}'
+    return filereadable(fpath) ? fpath : $'{path}\data\{fname}'
 enddef
 
 export def GetUnigramFile(): string
