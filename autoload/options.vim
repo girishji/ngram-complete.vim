@@ -14,7 +14,7 @@ export var opts: dict<any> = {
 def GetPath(fname: string): string
     var scripts = getscriptinfo({ name: 'ngram-complete.vim' })
     if scripts->empty()
-	return ''
+        return ''
     endif
     var path = scripts[0].name
     path = fnamemodify(path, ':p:h:h')

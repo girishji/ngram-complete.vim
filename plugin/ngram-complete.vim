@@ -22,25 +22,25 @@ const name = 'ngram'
 def NgramSetupDict()
     unigram.SetupDict()
     if opts.opts.bigram
-	bigram.SetupDict()
+        bigram.SetupDict()
     endif
 enddef
 
 def Register()
     var o = opts.opts
     if !o->has_key('enable') || o.enable
-	var ftypes = o->get('filetypes', [])->copy()
-	ftypes->extend(o->get('filetypesComments', []))
-	vimcompletor.Register(name, complete.Completor, ftypes, o->get('priority', 10))
-	var ft = ftypes->join(',')
-	if !ft->empty()
-	    NgramSetupDict() # Register() is called through VimEnter (after ft is detected)
-	    augroup NgramAutocmds | autocmd!
-		exec $'autocmd BufEnter {ft} NgramSetupDict()'
-	    augroup END
-	endif
+        var ftypes = o->get('filetypes', [])->copy()
+        ftypes->extend(o->get('filetypesComments', []))
+        vimcompletor.Register(name, complete.Completor, ftypes, o->get('priority', 10))
+        var ft = ftypes->join(',')
+        if !ft->empty()
+            NgramSetupDict() # Register() is called through VimEnter (after ft is detected)
+            augroup NgramAutocmds | autocmd!
+                exec $'autocmd BufEnter {ft} NgramSetupDict()'
+            augroup END
+        endif
     else
-	vimcompletor.Unregister(name)
+        vimcompletor.Unregister(name)
     endif
 enddef
 
@@ -49,8 +49,8 @@ autocmd User VimCompleteLoaded ++once Register()
 def OptionsChanged()
     var options = vimcompletor.GetOptions(name)
     if !options->empty()
-	opts.opts->extend(options)
-	Register()
+        opts.opts->extend(options)
+        Register()
     endif
 enddef
 
