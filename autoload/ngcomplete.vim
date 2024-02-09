@@ -1,5 +1,6 @@
 vim9script
 
+import 'vimcompletor.vim'
 import autoload './options.vim'
 import autoload './unigram.vim'
 import autoload './bigram.vim'
@@ -47,8 +48,9 @@ export def Completor(findstart: number, base: string): any
 
     items->filter((_, v) => v != base)
     var citems = []
+    var kind = vimcompletor.GetItemKindValue('Word')
     for item in items
-        citems->add({ abbr: item, word: item, kind: 't' })
+        citems->add({ abbr: item, word: item, kind: kind })
     endfor
     return citems->slice(0, opts.maxCount)
 enddef
