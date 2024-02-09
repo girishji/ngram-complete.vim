@@ -48,7 +48,7 @@ export def Completor(findstart: number, base: string): any
     items->filter((_, v) => v != base)
     var citems = []
     for item in items
-        citems->add({ abbr: item, word: item, kind: 'D' })
+        citems->add({ abbr: item, word: item, kind: 't' })
     endfor
     return citems->slice(0, opts.maxCount)
 enddef
