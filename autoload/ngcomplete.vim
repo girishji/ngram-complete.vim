@@ -48,7 +48,7 @@ export def Completor(findstart: number, base: string): any
 
     items->filter((_, v) => v != base)
     var citems = []
-    var kind = vimcompletor.GetItemKindValue('Word')
+    var kind = vimcompletor.GetItemKindValue('Text')
     for item in items
         citems->add({ abbr: item, word: item, kind: kind })
     endfor
