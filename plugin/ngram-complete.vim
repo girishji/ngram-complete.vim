@@ -6,10 +6,10 @@ endif
 vim9script
 
 import 'vimcompletor.vim'
-import autoload '../autoload/ngcomplete.vim' as complete
-import autoload '../autoload/options.vim' as opts
-import autoload '../autoload/unigram.vim'
-import autoload '../autoload/bigram.vim'
+import autoload '../autoload/ngram/ngcomplete.vim' as complete
+import autoload '../autoload/ngram/options.vim' as opts
+import autoload '../autoload/ngram/unigram.vim'
+import autoload '../autoload/ngram/bigram.vim'
 
 # Download dictionary if it doesn't exist yet
 # if empty(glob($'~/.vim/data/count_1w.txt')) && executable('curl')
