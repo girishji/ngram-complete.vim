@@ -5,11 +5,11 @@ endif
 
 vim9script
 
-import 'vimcompletor.vim'
 import autoload '../autoload/ngram/ngcomplete.vim' as complete
 import autoload '../autoload/ngram/options.vim' as opts
 import autoload '../autoload/ngram/unigram.vim'
 import autoload '../autoload/ngram/bigram.vim'
+import autoload 'vimcomplete/completor.vim'
 
 # Download dictionary if it doesn't exist yet
 # if empty(glob($'~/.vim/data/count_1w.txt')) && executable('curl')
@@ -31,7 +31,7 @@ def Register()
     if !o->has_key('enable') || o.enable
         var ftypes = o->get('filetypes', [])->copy()
         ftypes->extend(o->get('filetypesComments', []))
-        vimcompletor.Register(name, complete.Completor, ftypes, o->get('priority', 10))
+        completor.Register(name, complete.Completor, ftypes, o->get('priority', 10))
         var ft = ftypes->join(',')
         if !ft->empty()
             NgramSetupDict() # Register() is called through VimEnter (after ft is detected)
@@ -40,14 +40,14 @@ def Register()
             augroup END
         endif
     else
-        vimcompletor.Unregister(name)
+        completor.Unregister(name)
     endif
 enddef
 
 autocmd User VimCompleteLoaded ++once Register()
 
 def OptionsChanged()
-    var options = vimcompletor.GetOptions(name)
+    var options = completor.GetOptions(name)
     if !options->empty()
         opts.opts->extend(options)
         Register()
