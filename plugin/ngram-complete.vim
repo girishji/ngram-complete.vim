@@ -5,6 +5,12 @@ endif
 
 vim9script
 
+if !get(g:, 'loaded_lsp', false)
+    finish
+endif
+
+g:loaded_ngram_complete = true
+
 import autoload '../autoload/ngram/ngcomplete.vim' as complete
 import autoload '../autoload/ngram/options.vim' as opts
 import autoload '../autoload/ngram/unigram.vim'
