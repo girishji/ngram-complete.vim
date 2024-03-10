@@ -5,7 +5,7 @@ endif
 
 vim9script
 
-if !get(g:, 'loaded_lsp', false)
+if !get(g:, 'loaded_vimcomplete', false)
     finish
 endif
 
