@@ -20,7 +20,11 @@ export def Completor(findstart: number, base: string): any
             return line->len() + 1
         endif
         var prefix = line->matchstr('\a\+$')
-        return prefix->empty() ? -2 : line->len() - prefix->len() + 1
+        if prefix->empty() ||
+                (opts.triggerWordLen > 0 && prefix->len() < opts.triggerWordLen)
+            return -2
+        endif
+        return line->len() - prefix->len() + 1
     elseif findstart == 2
         return 1
     endif

@@ -9,6 +9,7 @@ export var opts: dict<any> = {
     bigramfile: 'count_2w.txt',
     filetypes: ['text', 'markdown'],
     filetypesComments: [],
+    triggerWordLen: 1, # Minimum number of characters needed to trigger completion menu.
 }
 
 def GetPath(fname: string): string

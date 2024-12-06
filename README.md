@@ -64,6 +64,7 @@ export var options: dict<any> = {
     bigram: false,   # 'true' to enable next-word completion
     filetypes: ['text', 'markdown'], # Enable completion for these filetypes only ('*' for all)
     filetypesComments: [], # Enable completion only in comments
+    triggerWordLen: 1, # Minimum number of characters needed to trigger completion menu.
 }
 ```
 
