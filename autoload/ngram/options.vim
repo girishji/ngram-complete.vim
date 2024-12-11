@@ -5,14 +5,14 @@ export var opts: dict<any> = {
     priority: 11,    # Higher priority items are shown at the top
     maxCount: 5,     # Maximum number of items shown
     bigram: false,   # 'true' to enable next-word completion
-    unigramfile: 'count_1w.txt',
-    bigramfile: 'count_2w.txt',
+    unigramfile: 'en_1w.txt',
+    bigramfile: 'en_2w.txt',
     filetypes: ['text', 'markdown'],
     filetypesComments: [],
     triggerWordLen: 1, # Minimum number of characters needed to trigger completion menu.
 }
 
-def GetPath(fname: string): string
+export def GetPath(fname: string): string
     var scripts = getscriptinfo({ name: 'ngram-complete.vim' })
     if scripts->empty()
         return ''

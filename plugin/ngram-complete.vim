@@ -32,6 +32,21 @@ def NgramSetupDict()
     endif
 enddef
 
+def 1gramUpdateDict(new_lang: string): void
+  lang_pattern = '\v(^|,)\zs\a\a\ze(_\a\a)?($|,)'
+
+  new_lang = tolower(matchstr(new_lang, lang_pattern))
+  new_lang = substitute(new_lang, '\s', '', 'g')
+
+  if !empty(new_lang)
+      dict = opts.getPath(new_lang .. '_1w.txt')
+      if filereadable(dict)
+          opts.opts.unigramfile = dict
+          unigram.SetupDict()
+      endif
+  endif
+enddef
+
 def Register()
     var o = opts.opts
     if !o->has_key('enable') || o.enable
@@ -43,6 +58,17 @@ def Register()
             NgramSetupDict() # Register() is called through VimEnter (after ft is detected)
             augroup NgramAutocmds | autocmd!
                 exec $'autocmd BufEnter {ft} NgramSetupDict()'
+                autocmd OptionSet spelllang
+                    let b:common_words_explicit = 1
+                    1gramUpdateDict(v:option_new)
+                autocmd OptionSet spell
+                    if &spell && !empty(&spelllang) && !exists('b:common_words_explicit')
+                        1gramUpdateDict(&spelllang)
+                    endif
+                autocmd BufWinEnter *
+                    if &spell && !empty(&spelllang) && !exists('b:common_words_explicit')
+                        1gramUpdateDict(&spelllang)
+                    endif
             augroup END
         endif
     else
