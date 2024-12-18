@@ -32,15 +32,15 @@ def NgramSetupDict()
     endif
 enddef
 
-def 1gramUpdateDict(new_lang: string): void
-  lang_pattern = '\v(^|,)\zs\a\a\ze(_\a\a)?($|,)'
+def UniGramUpdateDict(new_lang: string)
+  var lang_pattern = '\v(^|,)\zs\a\a\ze(_\a\a)?($|,)'
 
-  new_lang = tolower(matchstr(new_lang, lang_pattern))
-  new_lang = substitute(new_lang, '\s', '', 'g')
+  var matched = new_lang->matchstr(lang_pattern)->tolower()
+  matched = matched->substitute('\s', '', 'g')
 
-  if !empty(new_lang)
-      dict = opts.getPath(new_lang .. '_1w.txt')
-      if filereadable(dict)
+  if !matched->empty()
+      var dict = opts.getPath(matched .. '_1w.txt')
+      if dict->filereadable()
           opts.opts.unigramfile = dict
           unigram.SetupDict()
       endif
@@ -59,15 +59,15 @@ def Register()
             augroup NgramAutocmds | autocmd!
                 exec $'autocmd BufEnter {ft} NgramSetupDict()'
                 autocmd OptionSet spelllang
-                    let b:common_words_explicit = 1
-                    1gramUpdateDict(v:option_new)
+                    b:common_words_explicit = 1
+                    UniGramUpdateDict(v:option_new)
                 autocmd OptionSet spell
                     if &spell && !empty(&spelllang) && !exists('b:common_words_explicit')
-                        1gramUpdateDict(&spelllang)
+                        UniGramUpdateDict(&spelllang)
                     endif
                 autocmd BufWinEnter *
                     if &spell && !empty(&spelllang) && !exists('b:common_words_explicit')
-                        1gramUpdateDict(&spelllang)
+                        UniGramUpdateDict(&spelllang)
                     endif
             augroup END
         endif
